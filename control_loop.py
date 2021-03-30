@@ -17,4 +17,4 @@ def control_law():
 
 
 while True:
-    loop_rate(20)
+    loop_rate(6000)
