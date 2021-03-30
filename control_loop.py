@@ -5,7 +5,6 @@ import time
 def loop_rate(freq):
     t = time.time()
     delta_t = 1 / freq
-    control_law()  # Control Law Method
     while True:
         if time.time() > (t + delta_t):
             break
@@ -17,4 +16,5 @@ def control_law():
 
 
 while True:
-    loop_rate(20)
+    print(time.time())
+    loop_rate(60)
