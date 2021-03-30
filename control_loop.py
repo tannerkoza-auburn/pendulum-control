@@ -17,4 +17,4 @@ def control_law():
 
 while True:
     print(time.time())
-    loop_rate(60)
+    loop_rate(500)
