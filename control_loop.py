@@ -52,7 +52,7 @@ def loop_rate(period):
 des = set_point()
 while True:
     pos = adc.get_last_result()   # retrieves last position voltage value from potentiometer
-    error = des - pos
+    error = des - pos   # defines error
     control_sig = l_l_control + A*error + B*l_error + C*l_l_error
     # Insert Output Code Here
     l_l_error = l_error
