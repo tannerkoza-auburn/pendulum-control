@@ -13,9 +13,7 @@ fs = 60
 T = 1/fs  # this defines the time between samples
 
 # Define Control Input/Output
-signalPin = 0
-controlPin = 0
-GPIO.Input()
+
 
 # Define Control Gains
 Kp = 0  # proportional gain
@@ -57,6 +55,7 @@ des = set_point()
 try:
     while True:
         pos = adc.get_last_result()   # retrieves last position voltage value from potentiometer
+        pos_values.append(pos)
         error = des - pos   # defines error
         control_sig = l_l_control + A*error + B*l_error + C*l_l_error
         # Insert Output Code Here
