@@ -1,5 +1,6 @@
 import time
 import RPi.GPIO as GPIO
+import pandas as pd
 import Adafruit_ADS1x15
 
 # Define the ADC Instance
@@ -32,6 +33,9 @@ l_l_error = 0
 l_control = 0
 l_l_control = 0
 
+# Define Logging List
+pos_values = list()
+
 
 # Define Method for Set Point Definition
 def set_point():
@@ -50,15 +54,18 @@ def loop_rate(period):
 
 
 des = set_point()
-while True:
-    pos = adc.get_last_result()   # retrieves last position voltage value from potentiometer
-    error = des - pos   # defines error
-    control_sig = l_l_control + A*error + B*l_error + C*l_l_error
-    # Insert Output Code Here
-    l_l_error = l_error
-    l_error = error
-    l_l_control = l_control
-    l_control = control_sig
-    loop_rate(T)
-
+try:
+    while True:
+        pos = adc.get_last_result()   # retrieves last position voltage value from potentiometer
+        error = des - pos   # defines error
+        control_sig = l_l_control + A*error + B*l_error + C*l_l_error
+        # Insert Output Code Here
+        l_l_error = l_error
+        l_error = error
+        l_l_control = l_control
+        l_control = control_sig
+        loop_rate(T)
+except KeyboardInterrupt:
+    data = pd.DataFrame(pos_values)
+    data.to_csv('data.csv')
 
