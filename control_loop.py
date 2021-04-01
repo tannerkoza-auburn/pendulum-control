@@ -87,9 +87,9 @@ try:
         filt_pos = a*dig_pos + b*lf_in + a*llf_in + c*lf_out - d*llf_out    # filters digital position data
 
         if dig_pos != 0:
-            pos = range_adc/(max_adc/filt_pos)  # determines analog voltage from filtered digital voltage value
+            pos = range_adc/(max_adc/dig_pos)  # determines analog voltage from filtered digital voltage value
         else:
-            pos = filt_pos   # sets analog voltage to 0 if digital voltage is 0
+            pos = dig_pos   # sets analog voltage to 0 if digital voltage is 0
             
         pos_values.append(pos)  # logs filtered position
 
