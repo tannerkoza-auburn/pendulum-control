@@ -51,8 +51,7 @@ def set_point(rng, mx):
 
 
 # Define Function for Specified Loop Rates
-def loop_rate(period):
-    t = time.time()
+def loop_rate(period, t):
     delta_t = period
     while True:
         if time.time() > (t + delta_t):
@@ -64,6 +63,7 @@ input('\nStart Control?')
 
 try:
     while True:
+        now = time.time()
         dig_pos = adc.get_last_result()   # retrieves last position voltage value from potentiometer
         if dig_pos != 0:
             pos = range_adc/(max_adc/dig_pos)  # determines analog voltage from digital voltage
@@ -79,7 +79,7 @@ try:
         l_error = error
         l_l_control = l_control
         l_control = control_sig
-        loop_rate(T)
+        loop_rate(T, now)
 except KeyboardInterrupt:
     data = pd.DataFrame(pos_values, columns=['Position Voltage'])
     data['Commanded Voltage'] = sig_values
