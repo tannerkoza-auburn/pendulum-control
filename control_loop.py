@@ -19,7 +19,7 @@ controlPIN = 0
 
 # Define ADC Voltage Range & Max Value
 range_adc = 4.096
-max_adc =  32767 
+max_adc = 32767
 
 # Define Control Gains
 Kp = 0.2002  # proportional gain

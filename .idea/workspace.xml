@@ -30,6 +30,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../MechatronicsFSM" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
@@ -95,5 +96,11 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="I'm changing the loop rate." />
     <option name="LAST_COMMIT_MESSAGE" value="I'm changing the loop rate." />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1617212753350">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/-1920.0.1920.1150/0.0.1536.824@0.0.1536.824" timestamp="1617212753350" />
   </component>
 </project>
