@@ -32,8 +32,8 @@ B = (T*Ki) - ((4*Kd)/T)
 C = ((2*Kd)/T) + ((T*Ki)/2) - Kp
 
 # Define Filter 2nd Order z-Transform Coefficients
-a = 0.0002862
-b = 0.0005723
+a = 0.009259
+b = 0.2222
 c = 0.8219
 d = 0.1653
 
@@ -43,14 +43,8 @@ l_l_error = 0
 l_control = 0
 l_l_control = 0
 
-# Define Filter Loop Values
+# Define Filter Loop Value
 lf_out = 0
-lf_in = 0
-llf_out = 0
-llf_in = 0
-
-# Define Moving Average Loop Value
-l_sig = 0
 
 # Define Logging Lists
 pos_values = list()
@@ -83,23 +77,22 @@ try:
     while True:
         now = time.time()   # sets time at start of the loop to maintain loop rate
         dig_pos = adc.get_last_result()   # retrieves last position voltage value from potentiometer
-
-        filt_pos = a*dig_pos + b*lf_in + a*llf_in + c*lf_out - d*llf_out    # filters digital position data
-
+        
         if dig_pos != 0:
             pos = range_adc/(max_adc/dig_pos)  # determines analog voltage from filtered digital voltage value
         else:
             pos = dig_pos   # sets analog voltage to 0 if digital voltage is 0
             
-        pos_values.append(pos)  # logs filtered position
+        pos_values.append(pos)  # logs position
 
         error = des - pos   # defines error
         control_sig = l_l_control + A*error + B*l_error + C*l_l_error   # determines control signal
-        avg_sig = (l_sig + control_sig)/2   # determines moving average of control signal to output
         sig_values.append(control_sig)
-        filt_sig_values.append(avg_sig)
-
-        # Insert Output Code Here (avg_sig)
+        
+        filt_sig = a*control_sig + a*l_control - b*lf_out  # filters control signal (bw is approx. 10 hz)
+        filt_sig_values.append(filt_sig)
+        
+        # Insert Output Code Here (filt_sig)
 
         # Variable Management
         l_l_error = l_error
@@ -107,12 +100,7 @@ try:
         l_l_control = l_control
         l_control = control_sig
         
-        llf_out = lf_out
         lf_out = filt_pos
-        llf_in = lf_in
-        lf_in = dig_pos
-        
-        l_sig = control_sig
 
         # Loop Rate Function
         loop_rate(T, now)
