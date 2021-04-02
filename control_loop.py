@@ -100,7 +100,7 @@ try:
         l_l_control = l_control
         l_control = control_sig
         
-        lf_out = filt_pos
+        lf_out = filt_sig
 
         # Loop Rate Function
         loop_rate(T, now)
