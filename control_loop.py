@@ -115,7 +115,7 @@ try:
             p_pwm.ChangeDutyCycle(duty_cycle)  # if positive set positive pin pwm signal
             n_pwm.ChangeDutyCycle(0)
         else:
-            p_pwm.ChangeDutyCycle(0)  # if negative ste negative pin pwm signal
+            p_pwm.ChangeDutyCycle(0)  # if negative set negative pin pwm signal
             n_pwm.ChangeDutyCycle(duty_cycle)
         
         # Variable Management
