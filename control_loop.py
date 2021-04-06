@@ -14,14 +14,22 @@ adc.start_adc(0, gain=GAIN)  # change to corresponding input channel
 fs = 31
 T = 1/fs  # defines sample period
 
+# Define PWM Frequency
+pwm_f = 1000
+
 # Define Control Output
 GPIO.setmode(GPIO.BCM)
 positivePIN = 17
 negativePIN = 18
 GPIO.setup(positivePIN, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(negativePIN, GPIO.OUT, initial=GPIO.LOW)
+<<<<<<< HEAD
 p_pwm = GPIO.PWM(positivePIN, 1000)
 n_pwm = GPIO.PWM(negativePIN, 1000)
+=======
+p_pwm = GPIO.PWM(positivePIN, pwm_f)
+n_pwm = GPIO.PWM(negativePIN, pwm_f)
+>>>>>>> 8a5d0b6506712e134dc3b7aa739b06e0b0425b10
 
 # Define ADC Voltage Range & Max Value
 range_adc = 6.144
