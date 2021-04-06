@@ -20,8 +20,8 @@ positivePIN = 17
 negativePIN = 18
 GPIO.setup(positivePIN, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(negativePIN, GPIO.OUT, initial=GPIO.LOW)
-p_pwm = GPIO.PWM(positivePIN, fs*10)
-n_pwm = GPIO.PWM(negativePIN, fs*10)
+p_pwm = GPIO.PWM(positivePIN, 1000)
+n_pwm = GPIO.PWM(negativePIN, 1000)
 
 # Define ADC Voltage Range & Max Value
 range_adc = 6.144
