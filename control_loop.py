@@ -11,7 +11,7 @@ GAIN = 2/3
 adc.start_adc(0, gain=GAIN)  # change to corresponding input channel
 
 # Define Sampling Frequency
-fs = 31
+fs = 200
 T = 1/fs  # defines sample period
 
 # Define PWM Frequency
@@ -23,17 +23,14 @@ positivePIN = 17
 negativePIN = 18
 GPIO.setup(positivePIN, GPIO.OUT, initial=GPIO.LOW)
 GPIO.setup(negativePIN, GPIO.OUT, initial=GPIO.LOW)
-<<<<<<< HEAD
-p_pwm = GPIO.PWM(positivePIN, 1000)
-n_pwm = GPIO.PWM(negativePIN, 1000)
-=======
+
 p_pwm = GPIO.PWM(positivePIN, pwm_f)
 n_pwm = GPIO.PWM(negativePIN, pwm_f)
->>>>>>> 8a5d0b6506712e134dc3b7aa739b06e0b0425b10
+
 
 # Define ADC Voltage Range & Max Value
 range_adc = 6.144
-max_adc = 32767
+max_adc = 32768
 
 # Define Control Gains
 Kp = 0.2002  # proportional gain
@@ -45,11 +42,9 @@ A = Kp + ((2*Kd)/T) + ((T*Ki)/2)
 B = (T*Ki) - ((4*Kd)/T)
 C = ((2*Kd)/T) + ((T*Ki)/2) - Kp
 
-# Define Filter 2nd Order z-Transform Coefficients
+# Define Filter 1st Order z-Transform Coefficients
 a = 0.6111
 b = 0.2222
-c = 0.8219
-d = 0.1653
 
 # Define Control Loop Values
 l_error = 0
@@ -109,7 +104,7 @@ try:
         pos_values.append(pos)  # logs position
         filt_pos_values.append(f_pos)  # logs filtered position
 
-        error = des - f_pos   # defines error
+        error = des - pos   # defines error
         control_sig = l_l_control + A*error + B*l_error + C*l_l_error   # determines control signal
         sig_values.append(control_sig)  # logs control signal
         
@@ -149,6 +144,8 @@ except KeyboardInterrupt:
     data['Filtered Position'] = filt_pos_values
     data['Filtered Command Voltage'] = filt_sig_values
     data['Time'] = data.index/fs
-    data.to_csv('data.csv')
-    fig = px.line(data, x='Time', y=['Position Voltage', 'Filtered Position', 'Set Point', 'Commanded Voltage', 'Filtered Command Voltage'])
+    data.to_csv('data_' + str(fs) + 'hz.csv')
+    fig = px.line(data, x='Time', y=['Position Voltage', 'Filtered Position', 'Set Point', 'Commanded Voltage',
+        'Filtered Command Voltage'], title='Pendulum Performance')
+    fig.update_layout(xaxis_title='Time (s)', yaxis_title='Voltage (V)')
     fig.show()
